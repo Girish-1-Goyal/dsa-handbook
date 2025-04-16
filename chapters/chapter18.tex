@@ -1,0 +1,128 @@
+\chapter{Linux Commands}
+\label{ch:linux-commands}
+
+%--------------------------------------------------
+% Section 18.1: Basic Commands
+%--------------------------------------------------
+\section{Basic Linux Commands}
+
+\begin{description}
+  \item[\command{ls}] List directory contents.
+  \item[\command{cd}] Change the current working directory.
+  \item[\command{pwd}] Print the absolute path of the working directory.
+  \item[\command{cp}] Copy files or directories.
+  \item[\command{mv}] Move or rename files or directories.
+  \item[\command{rm}] Remove files or directories.
+  \item[\command{mkdir}] Create one or more directories.
+  \item[\command{rmdir}] Remove empty directories.
+  \item[\command{touch}] Create an empty file or update file timestamps.
+  \item[\command{cat}] Concatenate and display file contents.
+  \item[\command{less}] View file contents page by page.
+  \item[\command{grep}] Search file(s) for lines matching a pattern.
+  \item[\command{rm -rf}] Remove folder.
+\end{description}
+
+%--------------------------------------------------
+% Section 18.2: Intermediate Commands
+%--------------------------------------------------
+\section{Intermediate Commands}
+
+\begin{description}
+  \item[\command{find}] Search for files in a directory hierarchy.
+  \item[\command{chmod}] Change file or directory permissions.
+  \item[\command{chown}] Change file or directory ownership.
+  \item[\command{tar}] Create or extract archive files.
+  \item[\command{zip}/\command{unzip}] Compress and decompress files in ZIP format.
+  \item[\command{ssh}] Securely connect to a remote host.
+  \item[\command{scp}] Securely copy files between hosts over SSH.
+  \item[\command{rsync}] Efficiently synchronize files and directories.
+  \item[\command{ps}] Display current active processes.
+  \item[\command{kill}/\command{killall}] Terminate processes by PID or name.
+  \item[\command{top}] Display dynamic real-time view of running processes.
+  \item[\command{df}] Report filesystem disk space usage.
+  \item[\command{du}] Estimate file and directory space usage.
+  \item[\command{free}] Display memory usage statistics.
+  \item[\command{head}/\command{tail}] Output the first or last part of files.
+  \item[\command{awk}] Pattern scanning and processing language.
+  \item[\command{sed}] Stream editor for filtering and transforming text.
+\end{description}
+
+%--------------------------------------------------
+% Section 18.3: Advanced Commands
+%--------------------------------------------------
+\section{Advanced Commands}
+
+\begin{description}
+  \item[\command{htop}] Interactive process viewer with tree view and color coding.
+  \item[\command{nmap}] Network exploration and security auditing tool.
+  \item[\command{tcpdump}] Command-line packet analyzer.
+  \item[\command{lsof}] List open files and the processes that opened them.
+  \item[\command{strace}] Trace system calls and signals.
+  \item[\command{iptables}/\command{nft}] Configure Linux kernel packet filtering rules.
+  \item[\command{journalctl}] Query and display logs from the systemd journal.
+  \item[\command{systemctl}] Control and inspect systemd services and units.
+  \item[\command{curl}/\command{wget}] Transfer data to or from a server via various protocols.
+  \item[\command{xargs}] Build and execute command lines from standard input.
+  \item[\command{dd}] Convert and copy a file, often used for disk cloning.
+  \item[\command{traceroute}] Print the route packets take to network host.
+  \item[\command{dig}] DNS lookup utility.
+  \item[\command{fuser}] Identify processes using files or sockets.
+  \item[\command{screen}/\command{tmux}] Terminal multiplexers for session management.
+  \item[\command{sudo apt-get autoremove --purge}] It helps clean up your system and free up disk space.
+  \item[\command{sudo apt-get update}] It updates the local package index.
+  \item[\command{sudo apt-get upgrade}] It upgrades all installed packages on your system to their latest versions.
+\end{description}
+
+\section{GIT Commands}
+
+Git is a distributed version control system used to track changes in source code during software development. It allows multiple developers to work together efficiently and supports branching, merging, and collaboration through remote repositories (like GitHub or GitLab).
+
+\subsection*{Basic Configuration}
+Before using Git, configure your identity and preferred settings:
+
+\begin{verbatim}
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main
+git config --list   % View all configurations
+\end{verbatim}
+
+\subsection*{Common Git Commands}
+\begin{description}
+  \item[\command{git init}] Initializes a new Git repository in the current directory.
+  \item[\command{git clone <url>}] Downloads a repository from a remote URL to your local machine.
+  \item[\command{git add <file>}] Stages file(s) to be committed.
+  \item[\command{git commit -m "message"}] Commits staged changes with a message.
+  \item[\command{git status}] Displays the state of the working directory and staging area.
+  \item[\command{git log}] Shows the commit history.
+  \item[\command{git diff}] Shows the differences between files in the working directory and the index.
+  \item[\command{git branch}] Lists all local branches.
+  \item[\command{git branch -M main}] Renames the current branch to \command{main}.
+  \item[\command{git checkout <branch>}] Switches to the specified branch.
+  \item[\command{git checkout -b <branch>}] Creates a new branch and switches to it.
+  \item[\command{git merge <branch>}] Merges changes from another branch into the current one.
+  \item[\command{git remote add origin <url>}] Adds a remote repository (commonly GitHub).
+  \item[\command{git remote set-url origin https://<token>@github.com/<user>/<repo>}] Changes the URL of the existing remote.
+  \item[\command{git push}] Pushes local commits to the remote repository.
+  \item[\command{git push origin main}] Pushes the \command{main} branch to the remote named \command{origin}.
+  \item[\command{git push --set-upstream origin main}] Sets the upstream tracking for the current branch and pushes it.
+  \item[\command{git pull}] Fetches from the remote repository and merges changes into the current branch.
+  \item[\command{git pull origin main}] Pulls changes from the \command{main} branch of the remote \command{origin}.
+  \item[\command{git reset --hard HEAD\textasciitilde1}] Resets the current branch to the previous commit, discarding all changes.
+  \item[\command{git stash}] Temporarily saves uncommitted changes for later.
+  \item[\command{git stash pop}] Restores the most recent stashed changes.
+  \item[\command{git rm <file>}] Removes a file from the working directory and staging area.
+  \item[\command{git tag <name>}] Tags a commit with a specified name.
+  \item[\command{git fetch}] Retrieves changes from the remote without merging.
+  \item[\command{git revert <commit>}] Reverts the changes of a specific commit.
+  \item[\command{git show <commit>}] Displays information about a specific commit.
+  \item[\command{git blame <file>}] Shows who changed what and when in a file.
+\end{description}
+
+\subsection*{Best Practices}
+\begin{itemize}
+  \item Commit often with clear messages.
+  \item Use branches to manage different features or bug fixes.
+  \item Use \command{git pull --rebase} to maintain a linear history when collaborating.
+  \item Always check \command{git status} before committing or pushing.
+\end{itemize}

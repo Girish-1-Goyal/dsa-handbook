@@ -1,0 +1,235 @@
+\chapter{Introduction to Algorithm}
+
+\section*{\Large \textbf{Algorithms}}
+
+\subsection*{\large \textbf{What is an Algorithm?}}
+
+An \textbf{algorithm} is a finite sequence of well-defined instructions designed to perform a specific task or solve a particular problem. It serves as a step-by-step guide for solving computational problems and can be implemented in any programming language.
+
+Algorithms are fundamental to computer science and are used in data processing, calculations, artificial intelligence, automation, and numerous other fields. A good algorithm is not only correct but also efficient in terms of time and space.
+
+\subsection*{\large \textbf{Characteristics of an Algorithm}}
+
+An algorithm must satisfy the following essential properties:
+
+\subsubsection*{\textbf{1. Input}}
+An algorithm should have zero or more inputs. These are the values or data provided to the algorithm before it starts execution.
+
+\textit{Example:} An algorithm to calculate the sum of two numbers requires two input values.
+
+\subsubsection*{\textbf{2. Output}}
+An algorithm must produce at least one output. The output is the result obtained after executing the algorithm.
+
+\textit{Example:} The result of the sum operation in the above algorithm.
+
+\subsubsection*{\textbf{3. Unambiguity}}
+Every step or instruction in an algorithm should be clear and unambiguous. There should be no room for multiple interpretations.
+
+\textit{Example:} Instead of saying "Sort the numbers," say "Use Bubble Sort to sort the numbers in ascending order."
+
+\subsubsection*{\textbf{4. Finiteness}}
+An algorithm must always terminate after a finite number of steps. It should not enter into an infinite loop.
+
+\textit{Example:} A loop running from 1 to 10 is finite, but a loop with no exit condition can be infinite.
+
+\subsubsection*{\textbf{5. Effectiveness}}
+Each operation in an algorithm must be sufficiently basic and capable of being performed exactly and in a finite amount of time by a person or machine.
+
+\textit{Example:} Simple arithmetic operations like addition, multiplication, etc., are effective steps.
+
+\subsection*{\large \textbf{Approaches in Algorithm}}
+
+There are various approaches to designing and solving problems using algorithms. Each approach offers a unique way of breaking down the problem:
+
+\begin{itemize}
+  \item \textbf{Brute Force:} Tries all possible solutions until the correct one is found. Simple but inefficient for large problems.
+  \item \textbf{Divide and Conquer:} Breaks the problem into smaller sub-problems, solves them independently, and combines their results. Example: Merge Sort.
+  \item \textbf{Greedy Approach:} Builds up a solution piece by piece, always choosing the option that seems best at the moment. Example: Dijkstra’s Algorithm.
+  \item \textbf{Dynamic Programming:} Solves problems by combining the solutions of overlapping sub-problems. Example: Fibonacci with memoization.
+  \item \textbf{Backtracking:} Tries all possibilities by exploring every path recursively and backtracking when needed. Example: N-Queens Problem.
+  \item \textbf{Randomized Algorithms:} Uses randomness as part of its logic. Example: Randomized QuickSort.
+\end{itemize}
+
+\section*{\Large \textbf{Algorithm Analysis}}
+
+Algorithm analysis is a critical step in the development of efficient software. It helps in evaluating an algorithm’s efficiency in terms of the computational resources it consumes—primarily time and memory. The two primary measures for algorithm analysis are:
+
+\begin{itemize}
+  \item \textbf{Time Complexity:} How long an algorithm takes to run.
+  \item \textbf{Space Complexity:} How much memory an algorithm uses during execution.
+\end{itemize}
+
+\subsection*{\large \textbf{A Priori Analysis}}
+
+A Priori Analysis refers to analyzing the algorithm theoretically before implementing it. It involves estimating time and space complexity by examining the structure of the algorithm and using mathematical formulas.
+
+\textbf{Example:} For a sorting algorithm with nested loops, we may conclude its time complexity is $O(n^2)$ based on loop counts.
+
+\subsection*{\large \textbf{A Posteriori Analysis}}
+
+A Posteriori Analysis is done after implementing the algorithm. It involves running the code with different inputs and measuring actual execution time and memory consumption using tools or profilers.
+
+\textbf{Example:} Measuring runtime of a sorting function in seconds using a stopwatch or system profiler.
+
+\subsection*{\large \textbf{Time Complexity}}
+
+Time Complexity refers to the computational time taken by an algorithm to run as a function of the size of the input.
+
+\begin{itemize}
+  \item Expressed using Big-O notation (e.g., $O(1)$, $O(n)$, $O(n^2)$).
+  \item Helps in comparing algorithms independent of hardware.
+  \item Affects scalability — i.e., how well an algorithm performs as input grows.
+\end{itemize}
+
+\subsection*{\large \textbf{Space Complexity}}
+
+Space Complexity is the amount of memory space required by an algorithm during its execution, including:
+
+\begin{itemize}
+  \item Input storage
+  \item Auxiliary space (temporary variables, stack, etc.)
+\end{itemize}
+
+Efficient algorithms minimize both time and space usage, though often there is a trade-off between them.
+
+\subsection*{\large \textbf{Common Algorithms and Their Complexities}}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|
+                >{\raggedright\arraybackslash}p{3cm}|
+                >{\raggedright\arraybackslash}p{3cm}|
+                >{\raggedright\arraybackslash}p{3.5cm}|}
+\hline
+\textbf{Algorithm} & \textbf{Time Complexity} & \textbf{Space Complexity} & \textbf{Type} \\
+\hline
+Linear Search & $O(n)$ & $O(1)$ & Searching \\
+\hline
+Binary Search & $O(\log n)$ & $O(1)$ & Searching (Sorted Array) \\
+\hline
+Bubble Sort & $O(n^2)$ & $O(1)$ & Sorting \\
+\hline
+Merge Sort & $O(n \log n)$ & $O(n)$ & Sorting (Divide and Conquer) \\
+\hline
+Quick Sort & $O(n \log n)$ (avg), $O(n^2)$ (worst) & $O(\log n)$ & Sorting (Divide and Conquer) \\
+\hline
+Insertion Sort & $O(n^2)$ & $O(1)$ & Sorting \\
+\hline
+DFS (Graph) & $O(V + E)$ & $O(V)$ & Graph Traversal \\
+\hline
+BFS (Graph) & $O(V + E)$ & $O(V)$ & Graph Traversal \\
+\hline
+Dijkstra’s Algorithm & $O((V + E)\log V)$ & $O(V)$ & Shortest Path \\
+\hline
+Fibonacci (Recursion) & $O(2^n)$ & $O(n)$ & Recursion \\
+\hline
+Fibonacci (DP) & $O(n)$ & $O(n)$ or $O(1)$ (optimized) & Dynamic Programming \\
+\hline
+\end{tabular}
+
+\vspace{1em}
+\textbf{Note:}
+\begin{itemize}
+  \item $V$ = number of vertices, $E$ = number of edges in a graph.
+  \item Choosing the right algorithm is essential to building efficient software systems.
+\end{itemize}
+
+\newpage
+\section*{\Large \textbf{Implementation of Basic Algorithms}}
+
+\subsection*{\textbf{1. Linear Search}}
+\begin{lstlisting}[language=C++, caption=Linear Search]
+int linearSearch(vector<int>& arr, int target) {
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] == target)
+            return i;
+    }
+    return -1;
+}
+\end{lstlisting}
+
+\subsection*{\textbf{2. Binary Search}}
+\begin{lstlisting}[language=C++, caption=Binary Search (Iterative)]
+int binarySearch(vector<int>& arr, int target) {
+    int left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        else if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+\end{lstlisting}
+
+\subsection*{\textbf{3. Bubble Sort}}
+\begin{lstlisting}[language=C++, caption=Bubble Sort]
+void bubbleSort(vector<int>& arr) {
+    for (int i = 0; i < arr.size() - 1; i++) {
+        for (int j = 0; j < arr.size() - i - 1; j++) {
+            if (arr[j] > arr[j + 1])
+                swap(arr[j], arr[j + 1]);
+        }
+    }
+}
+\end{lstlisting}
+
+\subsection*{\textbf{4. Merge Sort}}
+\begin{lstlisting}[language=C++, caption=Merge Sort]
+void merge(vector<int> &arr, int low, int mid, int high){
+    vector<int> temp;
+    int left = low;
+    int right = mid + 1;
+    while(left <= mid && right <= high){
+        if(arr[left] <= arr[right]){
+            temp.push_back(arr[left]);
+            left++;
+        }
+        else{
+            temp.push_back(arr[right]);
+            right++;
+        }
+    }
+    while(left <= mid){
+        temp.push_back(arr[left]);
+        left++;
+    }
+    while(right <= high){
+        temp.push_back(arr[right]);
+        right++;
+    }
+    for(int i = low; i <= high; ++i){
+        arr[i] = temp[i - low];
+    }
+}
+
+void merge_sort(vector<int> &arr, int low, int high){
+    if(low >= high){
+        return;
+    }
+    int mid = (low + high) / 2;
+    merge_sort(arr, low, mid);
+    merge_sort(arr, mid + 1, high);
+    merge(arr, low, mid, high);
+}
+\end{lstlisting}
+
+\subsection*{\textbf{5. Quick Sort}}
+\begin{lstlisting}[language=C++, caption=Quick Sort]
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot)
+            swap(arr[++i], arr[j]);
+    }
+    swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+\end{lstlisting}

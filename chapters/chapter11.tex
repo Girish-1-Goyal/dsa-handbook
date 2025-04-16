@@ -1,0 +1,243 @@
+\chapter{Skip List}
+
+\section{Introduction}
+A \textbf{skip list} is a probabilistic data structure that allows fast search, insertion, and deletion operations within an ordered sequence of elements. It achieves performance comparable to balanced trees (average \( O(\log n) \) time for operations) by maintaining multiple levels of linked lists. Higher levels “skip” many nodes, allowing rapid traversal of the list.
+
+\section{Definition and Theoretical Background}
+A skip list consists of multiple levels:
+\begin{itemize}
+    \item The bottom level is an ordinary sorted linked list containing all elements.
+    \item Each higher level acts as an “express lane” that skips several elements. Nodes appear in higher levels with a fixed probability \( p \) (commonly \( p=0.5 \)).
+\end{itemize}
+
+\subsection{Key Operations}
+\begin{itemize}
+    \item \textbf{Search}: Start from the topmost level and traverse right until the next node's key exceeds the search key. Then drop down one level and continue. Average search time is \( O(\log n) \).
+    \item \textbf{Insertion}: Similar to search, find the correct position at each level and randomly decide how many levels the new node should appear in. Insert the node by updating pointers. Average time is \( O(\log n) \).
+    \item \textbf{Deletion}: Search for the node, then update pointers at all levels where the node appears. Average time is \( O(\log n) \).
+\end{itemize}
+
+\subsection{Time Complexity}
+\begin{itemize}
+    \item \textbf{Search}: \( O(\log n) \) average
+    \item \textbf{Insertion}: \( O(\log n) \) average
+    \item \textbf{Deletion}: \( O(\log n) \) average
+\end{itemize}
+
+\section{Diagrams of Skip List Operations}
+\subsection{Skip List Structure Diagram}
+The diagram below illustrates a skip list with three levels. The bottom level (Level 0) contains all elements. Higher levels (Levels 1 and 2) contain a subset of nodes to enable faster traversal.
+
+\begin{center}
+\begin{tikzpicture}[node distance=1cm]
+    % Level 2 (top level)
+    \node (c0) [draw, rectangle, minimum width=1cm, minimum height=0.8cm] {H};
+    \node (c1) [draw, rectangle, right=1.5cm of c0, minimum width=1cm, minimum height=0.8cm] {9};
+    \draw[->, thick] (c0) -- (c1);
+    
+    % Level 1 (middle level)
+    \node (b0) [draw, rectangle, minimum width=1cm, minimum height=0.8cm, below=of c0] {H};
+    \node (b1) [draw, rectangle, right=1.5cm of b0, minimum width=1cm, minimum height=0.8cm] {6};
+    \node (b2) [draw, rectangle, right=1.5cm of b1, minimum width=1cm, minimum height=0.8cm] {9};
+    \node (b3) [draw, rectangle, right=1.5cm of b2, minimum width=1cm, minimum height=0.8cm] {12};
+    \draw[->, thick] (b0) -- (b1) -- (b2) -- (b3);
+    
+    % Level 0 (bottom level)
+    \node (a0) [draw, rectangle, minimum width=1cm, minimum height=0.8cm, below=of b0] {H};
+    \node (a1) [draw, rectangle, right=1.5cm of a0, minimum width=1cm, minimum height=0.8cm] {3};
+    \node (a2) [draw, rectangle, right=1.5cm of a1, minimum width=1cm, minimum height=0.8cm] {6};
+    \node (a3) [draw, rectangle, right=1.5cm of a2, minimum width=1cm, minimum height=0.8cm] {7};
+    \node (a4) [draw, rectangle, right=1.5cm of a3, minimum width=1cm, minimum height=0.8cm] {9};
+    \node (a5) [draw, rectangle, right=1.5cm of a4, minimum width=1cm, minimum height=0.8cm] {12};
+    \node (a6) [draw, rectangle, right=1.5cm of a5, minimum width=1cm, minimum height=0.8cm] {19};
+    \draw[->, thick] (a0) -- (a1) -- (a2) -- (a3) -- (a4) -- (a5) -- (a6);
+    
+    % Vertical links from Level 2 to Level 1
+    \draw[->, dashed] (c0.south) -- (b0.north);
+    \draw[->, dashed] (c1.south) -- (b2.north);
+    
+    % Vertical links from Level 1 to Level 0
+    \draw[->, dashed] (b0.south) -- (a0.north);
+    \draw[->, dashed] (b1.south) -- (a2.north);
+    \draw[->, dashed] (b2.south) -- (a4.north);
+    \draw[->, dashed] (b3.south) -- (a6.north);
+\end{tikzpicture}
+\end{center}
+
+In the diagram:
+\begin{itemize}
+    \item \textbf{H} stands for the header node.
+    \item Dashed arrows indicate pointers connecting nodes between levels.
+\end{itemize}
+
+\section{C++ Implementation of a Skip List}
+Below is a sample C++ implementation of a skip list that supports search, insertion, and deletion operations.
+
+\begin{lstlisting}[caption={C++ implementation of a Skip List}]
+#include <iostream>
+#include <cstdlib>
+#include <climits>
+#include <ctime>
+using namespace std;
+
+class Node {
+public:
+    int key;
+    Node **forward;
+    // Constructor: creates a node with given key and level
+    Node(int key, int level) : key(key) {
+        forward = new Node*[level + 1];
+        for (int i = 0; i <= level; i++) {
+            forward[i] = nullptr;
+        }
+    }
+    ~Node() {
+        delete [] forward;
+    }
+};
+
+class SkipList {
+    int maxLevel;
+    float p;
+    int level;
+    Node *header;
+public:
+    SkipList(int maxLevel, float p) : maxLevel(maxLevel), p(p), level(0) {
+        // Create header node with key -1 (a sentinel) and maximum level
+        header = new Node(-1, maxLevel);
+    }
+    ~SkipList() {
+        // Free nodes (not fully implemented for brevity)
+        delete header;
+    }
+    
+    // Randomly generate a level for node
+    int randomLevel() {
+        int lvl = 0;
+        while (((float)rand() / RAND_MAX) < p && lvl < maxLevel)
+            lvl++;
+        return lvl;
+    }
+    
+    // Insert a key into skip list
+    void insertElement(int key) {
+        Node *current = header;
+        Node *update[maxLevel + 1];
+        for (int i = 0; i <= maxLevel; i++) {
+            update[i] = nullptr;
+        }
+        // Start from highest level and move downwards
+        for (int i = level; i >= 0; i--) {
+            while (current->forward[i] != nullptr && current->forward[i]->key < key)
+                current = current->forward[i];
+            update[i] = current;
+        }
+        current = current->forward[0];
+        // If key not found, insert new node
+        if (current == nullptr || current->key != key) {
+            int rlevel = randomLevel();
+            if (rlevel > level) {
+                for (int i = level + 1; i <= rlevel; i++) {
+                    update[i] = header;
+                }
+                level = rlevel;
+            }
+            Node* n = new Node(key, rlevel);
+            for (int i = 0; i <= rlevel; i++) {
+                n->forward[i] = update[i]->forward[i];
+                update[i]->forward[i] = n;
+            }
+            cout << "Successfully inserted key " << key << "\n";
+        }
+    }
+    
+    // Delete an element from skip list
+    void deleteElement(int key) {
+        Node *current = header;
+        Node *update[maxLevel + 1];
+        for (int i = 0; i <= maxLevel; i++) {
+            update[i] = nullptr;
+        }
+        for (int i = level; i >= 0; i--) {
+            while (current->forward[i] != nullptr && current->forward[i]->key < key)
+                current = current->forward[i];
+            update[i] = current;
+        }
+        current = current->forward[0];
+        if (current != nullptr && current->key == key) {
+            for (int i = 0; i <= level; i++) {
+                if (update[i]->forward[i] != current)
+                    break;
+                update[i]->forward[i] = current->forward[i];
+            }
+            delete current;
+            while (level > 0 && header->forward[level] == nullptr)
+                level--;
+            cout << "Successfully deleted key " << key << "\n";
+        }
+    }
+    
+    // Search for an element in the skip list
+    Node* searchElement(int key) {
+        Node *current = header;
+        for (int i = level; i >= 0; i--) {
+            while (current->forward[i] != nullptr && current->forward[i]->key < key)
+                current = current->forward[i];
+        }
+        current = current->forward[0];
+        if (current != nullptr && current->key == key)
+            return current;
+        return nullptr;
+    }
+    
+    // Display the skip list levels
+    void displayList() {
+        cout << "\n***** Skip List *****" << "\n";
+        for (int i = 0; i <= level; i++) {
+            Node *node = header->forward[i];
+            cout << "Level " << i << ": ";
+            while (node != nullptr) {
+                cout << node->key << " ";
+                node = node->forward[i];
+            }
+            cout << "\n";
+        }
+    }
+};
+
+int main() {
+    srand((unsigned)time(0));
+    SkipList lst(3, 0.5);
+    lst.insertElement(3);
+    lst.insertElement(6);
+    lst.insertElement(7);
+    lst.insertElement(9);
+    lst.insertElement(12);
+    lst.insertElement(19);
+    lst.displayList();
+    
+    int searchKey = 9;
+    Node *res = lst.searchElement(searchKey);
+    if(res != nullptr)
+        cout << "Found key: " << searchKey << "\n";
+    else
+        cout << "Key " << searchKey << " not found\n";
+    
+    lst.deleteElement(3);
+    lst.displayList();
+    
+    return 0;
+}
+\end{lstlisting}
+
+\section{Example Scenario in Detail}
+Consider the following operations on an initially empty skip list:
+\begin{enumerate}
+    \item \textbf{Insert} 3, 6, 7, 9, 12, 19 into the skip list.
+    \item The skip list will organize these keys into multiple levels where higher levels contain fewer nodes.
+    \item \textbf{Search} for key 9: Starting from the top level, the algorithm quickly narrows down to the correct node.
+    \item \textbf{Delete} key 3: After deletion, pointers at all levels are updated accordingly.
+\end{enumerate}
+
+\section{Conclusion}
+Skip lists offer an elegant probabilistic alternative to balanced trees, providing \( O(\log n) \) average time for search, insertion, and deletion. This chapter presented the theoretical background, detailed operations, and diagrams illustrating the multi-level structure. The included C++ implementation demonstrates how a skip list can be built and manipulated, making it a powerful tool for ordered data storage and retrieval.

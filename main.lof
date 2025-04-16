@@ -1,0 +1,43 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Types of Data Structure\relax }}{2}{figure.1.1}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Algorithm\relax }}{4}{figure.1.2}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Graphical illustration of \( O(n^2) \), \(\Theta (n^2)\), and \(\Omega (n^2)\).\relax }}{22}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Recursion Tree of Quick Sort in Best Case (Perfectly Balanced)\relax }}{26}{figure.4.2}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Comparison pattern in Insertion Sort (Worst Case)\relax }}{27}{figure.4.3}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Selection of the minimum element in each iteration\relax }}{28}{figure.4.4}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Max-Heap Tree Structure\relax }}{30}{figure.4.5}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Min-Heap Tree Structure\relax }}{30}{figure.4.6}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Counting Sort Diagram: Frequency Count\relax }}{32}{figure.4.7}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Radix Sort Progression by Digit Position\relax }}{33}{figure.4.8}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Bucket Sort Buckets with Sorted Values\relax }}{35}{figure.4.9}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Pointer in C++\relax }}{36}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Pointer arithmetic: \texttt {ptr} points to \texttt {arr[0]}, \texttt {ptr+1} points to \texttt {arr[1]}, and so on.\relax }}{38}{figure.5.2}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Memory layout of struct Student\relax }}{40}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Union memory layout (shared memory)\relax }}{42}{figure.6.2}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Conceptual representation of an array in memory\relax }}{45}{figure.7.1}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Memory layout of a 1D array with 5 elements.\relax }}{50}{figure.7.2}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Row-major layout of a 2D array (3 rows, 4 columns).\relax }}{50}{figure.7.3}%
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Index diagram for a 1D array of 5 elements\relax }}{51}{figure.7.4}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Singly Linked List Diagram\relax }}{55}{figure.8.1}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Doubly Linked List Diagram\relax }}{57}{figure.8.2}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Circular Linked List Diagram\relax }}{59}{figure.8.3}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {14.1}{\ignorespaces Linear Search: Sequentially checking each element\relax }}{114}{figure.14.1}%
+\contentsline {figure}{\numberline {14.2}{\ignorespaces Binary Search: Halving the search interval\relax }}{115}{figure.14.2}%
+\contentsline {figure}{\numberline {14.3}{\ignorespaces Exponential Search: Doubling indices to find the search range\relax }}{117}{figure.14.3}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

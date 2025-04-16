@@ -1,0 +1,386 @@
+\chapter{C++ Template}
+\label{chap:cpp-template}
+
+\section{Basic Template}
+
+This is the basic template that anyone can use to write the code in c++.
+
+\begin{lstlisting}[language=C++, caption={Main C++ Template}]
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void solve(){
+    //Code Here....
+}
+void init_code(){
+    ios_base :: sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+}
+int main(){
+    init_code();
+    solve();
+    return 0;
+}
+
+\end{lstlisting}
+\newpage
+\section{Debugging Template}
+\begin{lstlisting}[language=C++, caption={Debugging Template}]
+template < class c > struct rge {
+    c b, e;
+};
+template < class c > rge<c> range(c i, c j){
+    return rge<c>{i, j};
+}
+template < class c > auto dud(c* x) -> decltype(cerr << *x, 0);
+template < class c > char dud(...);
+
+struct debug {
+    ~debug() { cerr << endl; }
+    template < class c > typename enable_if<sizeof dud<c>(0) != 1, debug&>::type operator<<(c i) {
+        cerr << boolalpha << i;
+        return * this;
+    }
+    template < class c > typename enable_if<sizeof dud<c>(0) == 1, debug&>::type operator<<(c i) {
+        return * this << range(begin(i), end(i)); 
+    }
+    template < class c, class b > debug & operator << (pair < b, c > d) {
+        return * this << "(" << d.first << ", " << d.second << ")";
+    }
+    template < class c > debug & operator <<(rge<c> d) {
+        *this << "[";
+        for (auto it = d.b; it != d.e; ++it)
+            *this << ", " + 2 * (it == d.b) << *it;
+        return * this << "]";
+    }
+};  
+#define imie(...) " [" << #__VA_ARGS__ " : " << (__VA_ARGS__) << "]"
+\end{lstlisting}
+\newpage
+\section{Combined Template}
+
+Here is a combined template for development that includes both the main structure and debugging utilities.
+
+\begin{lstlisting}[language=C++, caption={Combined Template}]
+/*
+*
+*    Author : Girish Kumar Goyal.
+*
+*/
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+template < class c > struct rge {
+    c b, e;
+};
+template < class c > rge<c> range(c i, c j){
+    return rge<c>{i, j};
+}
+template < class c > auto dud(c* x) -> decltype(cerr << *x, 0);
+template < class c > char dud(...);
+struct debug {
+    ~debug() { cerr << endl; }
+    template < class c > typename enable_if<sizeof dud<c>(0) != 1, debug&>::type operator<<(c i) {
+        cerr << boolalpha << i;
+        return * this;
+    }
+    template < class c > typename enable_if<sizeof dud<c>(0) == 1, debug&>::type operator<<(c i) {
+        return * this << range(begin(i), end(i)); 
+    }
+    template < class c, class b > debug & operator << (pair < b, c > d) {
+        return * this << "(" << d.first << ", " << d.second << ")";
+    }
+    template < class c > debug & operator <<(rge<c> d) {
+        *this << "[";
+        for (auto it = d.b; it != d.e; ++it)
+            *this << ", " + 2 * (it == d.b) << *it;
+        return * this << "]";
+    }
+};  
+#define imie(...) " [" << #__VA_ARGS__ " : " << (__VA_ARGS__) << "]"
+
+void solve(){
+    //Code Here....
+}
+void init_code(){
+    ios_base :: sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+}
+int main(){
+    init_code();
+    solve();
+    return 0;
+}
+\end{lstlisting}
+\section{Using the Debugging Template}
+
+To use the debugging template, you can print variables or expressions during development by using the `debug()` object in combination with the `imie(...)` macro. This will output both the name of the variable and its value, which is extremely useful for tracing bugs.
+
+\textbf{Syntax:}
+\begin{lstlisting}[language=C++]
+debug() << imie(variable1) << imie(variable2) << imie(expression);
+\end{lstlisting}
+
+\textbf{Example:}
+
+Here's a complete example demonstrating the use of `debug()` and `imie(...)`:
+
+\begin{lstlisting}[language=C++, caption={Debugging Example}]
+void solve() {
+    int a = 42;
+    string s = "hello";
+    vector<int> v = {1, 2, 3};
+    
+    debug() << imie(a) << imie(s) << imie(v);
+}
+
+void init_code(){
+    ios_base :: sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+}
+
+int main(){
+    init_code();
+    solve();
+    return 0;
+}
+\end{lstlisting}
+
+
+\section{C++ program time calculation}
+
+\textbf{Example:}
+
+\begin{lstlisting}[language=C++, caption={CPP Code time Example}]
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void solve() {
+    // Code here....
+}
+
+void init_code(){
+    ios_base :: sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+}
+
+int main(){
+    init_code();
+    clock_t start, end;
+    double cpu_time;
+    start = clock();
+    solve();
+    cpu_time = ((double)(end - start)) / CLOCKS_PER_SEC;
+    cout << cpu_time << "\n";
+    return 0;
+}
+\end{lstlisting}
+
+\newpage
+
+\section{Test case generator program in C++}
+
+\textbf{Example:}
+
+Test case generator in c++ basically the code to generate random testcases like this.
+\begin{verbatim}
+2
+5
+1 2 3 4 5
+4
+2 3 1 43
+\end{verbatim}
+
+\begin{lstlisting}[language=C++, caption={Test case generator}]
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int naxTest = 20;
+int naxArraySize = 50;
+int naxValue = 5000;
+
+vector<int> generateTestCase(int size, int maxValue) {
+    vector<int> testCase(size);
+    for (int i = 0; i < size; i++) {
+        testCase[i] = rand() % maxValue + 1;
+    }
+    return testCase;
+}
+
+int main() {
+    srand(time(0));
+    int numTestCases = rand() % naxTest + 1;
+    int maxArraySize = rand() % naxArraySize + 1;
+    int maxValue = rand() % naxValue + 1;
+    cout << numTestCases << "\n";
+    for (int i = 0; i < numTestCases; i++) {
+        int arraySize = rand() % maxArraySize + 1;
+        cout << arraySize << "\n";
+        vector<int> testCase = generateTestCase(arraySize, maxValue);
+        // sort(testCase.begin(), testCase.end());
+        for (int num : testCase) {
+            cout << num << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+\end{lstlisting}
+
+\section{Script for stress testing of c++ code}
+
+\textbf{Syntax:}
+\begin{lstlisting}[language=C++]
+./stress.sh
+\end{lstlisting}
+
+\textbf{Example:}
+
+The following script automates compilation and stress testing of a C++ solution against generated test cases:
+
+\begin{lstlisting}[style=bashstyle]
+#!/bin/bash
+
+black=$(tput setaf 0)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+magenta=$(tput setaf 5)
+cyan=$(tput setaf 6)
+white=$(tput setaf 7)
+bold=$(tput bold)
+reset=$(tput sgr0)
+CPP_VERSION="c++17"
+COMPILE_FLAGS="-Wall -Wextra -O2"
+TEST_GEN_FILE="./stress_tester/test_gen.cpp"
+MAIN_FILE="sol.cpp"
+INPUT_FILE="in"
+MAX_TESTS=5
+TIME_LIMIT=2  # seconds per test case
+
+usage() {
+    echo -e "${bold}${cyan}Usage:${reset} $(basename "$0") [-t <num_tests>]"
+    exit 1
+}
+while getopts "t:h" opt; do
+    case $opt in
+        t)
+            MAX_TESTS="$OPTARG"
+            ;;
+        h)
+            usage
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+log_info() {
+    echo -e "${bold}${blue}[INFO]${reset} $1"
+}
+log_success() {
+    echo -e "${bold}${green}[SUCCESS]${reset} $1"
+}
+log_error() {
+    echo -e "${bold}${red}[ERROR]${reset} $1"
+}
+log_warning() {
+    echo -e "${bold}${yellow}[WARNING]${reset} $1"
+}
+check_files() {
+    echo ""
+    echo "---------------------------------------------------------"
+    local missing=0
+    if [ ! -f "$MAIN_FILE" ]; then
+        log_error "Main solution file ${yellow}$MAIN_FILE${reset} not found!"
+        missing=1
+    fi
+    if [ ! -f "$TEST_GEN_FILE" ]; then
+        log_error "Test case generator file ${yellow}$TEST_GEN_FILE${reset} not found!"
+        missing=1
+    fi
+    if [ $missing -eq 1 ]; then
+        exit 1
+    fi
+}
+compile_file() {
+    local src_file="$1"
+    local exe_file="$2"
+    local extra_flags="$3"
+    log_info "Compiling ${yellow}$src_file${reset}..."
+    local start_ns=$(date +%s%N)
+    compile_output=$(g++ -std="$CPP_VERSION" $COMPILE_FLAGS $extra_flags "$src_file" -o "$exe_file" 2>&1)
+    if [ $? -ne 0 ]; then
+        log_error "Compilation failed for ${yellow}$src_file${reset}."
+        echo -e "${red}Compiler output:${reset}"
+        echo "$compile_output"
+        exit 1
+    fi
+    local end_ns=$(date +%s%N)
+    local compile_time_ns=$((end_ns - start_ns))
+    local compile_time_ms=$(echo "scale=3; $compile_time_ns/1000000" | bc)
+    log_success "Compiled ${yellow}$src_file${reset} to ${magenta}$exe_file${reset} in ${cyan}${compile_time_ms} ms${reset}."
+}
+stress_test() {
+    local accepted=0
+    local failed=0
+    local total_test_time_ns=0
+    echo -e "\n${bold}${red}Starting stress testing with ${yellow}$MAX_TESTS${red} test cases...${reset}"
+    for (( i=1; i<=MAX_TESTS; i++ )); do
+        echo -e "\n${bold}${blue}======= Test case #$i =======${reset}"
+        ./generator > "$INPUT_FILE"
+        echo -e "${bold}${magenta}[Input]:${reset}"
+        cat "$INPUT_FILE"
+        echo ""
+        local start_ns=$(date +%s%N)
+        output=$(timeout $TIME_LIMIT ./sol < "$INPUT_FILE" 2>&1)
+        local ret_code=$?
+        local end_ns=$(date +%s%N)
+        local elapsed_ns=$((end_ns - start_ns))
+        total_test_time_ns=$((total_test_time_ns + elapsed_ns))
+        local elapsed_ms=$(echo "scale=3; $elapsed_ns/1000000" | bc)
+        echo -e "${bold}${cyan}[Output]:${reset}"
+        echo -e "$output"
+        if [ $ret_code -eq 0 ]; then
+            echo -e "${bold}${green}Test case #$i: Accepted in ${blue}${elapsed_ms} ms${reset}"
+            ((accepted++))
+        elif [ $ret_code -eq 124 ]; then
+            echo -e "${bold}${red}Test case #$i: Time Limit Exceeded (TLE) after ${yellow}${elapsed_ms} ms${reset}"
+            ((failed++))
+        elif [ $ret_code -eq 137 ]; then
+            echo -e "${bold}${red}Test case #$i: Memory Limit Exceeded (MLE) in ${yellow}${elapsed_ms} ms${reset}"
+            ((failed++))
+        elif [ $ret_code -eq 139 ]; then
+            echo -e "${bold}${red}Test case #$i: Runtime Error (Segmentation Fault) in ${yellow}${elapsed_ms} ms${reset}"
+            ((failed++))
+        else
+            echo -e "${bold}${red}Test case #$i: Runtime Error (exit code $ret_code) in ${yellow}${elapsed_ms} ms${reset}"
+            ((failed++))
+        fi
+        echo -e "${bold}${white}=====================================${reset}"
+    done
+    total_test_time_ms=$(echo "scale=3; $total_test_time_ns/1000000" | bc)
+    avg_time=$(echo "scale=3; $total_test_time_ms/$MAX_TESTS" | bc)
+    echo -e "\n${bold}${red}Stress testing completed.${reset}"
+    echo -e "${bold}${green}[Accepted]: $accepted${reset}    ${bold}${red}[Failed]: $failed${reset}"
+    echo -e "${bold}${cyan}[Total testing time]: ${total_test_time_ms} ms${reset}"
+    echo -e "${bold}${magenta}[Average time per test]: ${avg_time} ms${reset}"
+    echo ""
+}
+check_files
+compile_file "$TEST_GEN_FILE" "generator" ""
+compile_file "$MAIN_FILE" "sol" ""
+stress_test
+\end{lstlisting}
+

@@ -1,0 +1,253 @@
+\chapter{Sorting Algorithms}
+
+This chapter provides detailed C++ implementations of several important sorting algorithms. Each algorithm is explained with code examples using the \texttt{listings} package.
+
+\section{Bubble Sort}
+Bubble Sort repeatedly compares adjacent elements and swaps them if they are in the wrong order. It is simple but inefficient for large datasets.
+
+\begin{lstlisting}[language=C++, caption={Bubble Sort Implementation}]
+void bubbleSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n - 1; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]);
+                swapped = true;
+            }
+        }
+        if (!swapped)
+            break; // Array is sorted
+    }
+}
+\end{lstlisting}
+
+\section{Insertion Sort}
+Insertion Sort builds the sorted array one element at a time by comparing each new element with the already sorted elements.
+
+\begin{lstlisting}[language=C++, caption={Insertion Sort Implementation}]
+void insertionSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j+1] = arr[j];
+            j--;
+        }
+        arr[j+1] = key;
+    }
+}
+\end{lstlisting}
+
+\section{Selection Sort}
+Selection Sort repeatedly finds the minimum element from the unsorted portion and swaps it with the first unsorted element.
+
+\begin{lstlisting}[language=C++, caption={Selection Sort Implementation}]
+void selectionSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n - 1; i++) {
+        int minIdx = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIdx])
+                minIdx = j;
+        }
+        swap(arr[i], arr[minIdx]);
+    }
+}
+\end{lstlisting}
+
+\section{Counting Sort}
+Counting Sort works efficiently when the range of input data (\(k\)) is not significantly greater than the number of elements (\(n\)). It counts the occurrences of each value and then reconstructs the sorted array.
+
+\begin{lstlisting}[language=C++, caption={Counting Sort Implementation}]
+void countingSort(vector<int>& arr) {
+    int n = arr.size();
+    int maxVal = *max_element(arr.begin(), arr.end());
+    vector<int> count(maxVal + 1, 0);
+    for (int i = 0; i < n; i++) {
+        count[arr[i]]++;
+    }
+    int index = 0;
+    for (int i = 0; i <= maxVal; i++) {
+        while (count[i]-- > 0) {
+            arr[index++] = i;
+        }
+    }
+}
+\end{lstlisting}
+
+\paragraph{Time Complexity Analysis:}
+\begin{itemize}
+  \item Counting frequency: \(O(n)\)
+  \item Populating the sorted array: \(O(k)\)
+\end{itemize}
+Overall, the expected time complexity is \(O(n + k)\), with space complexity \(O(k)\).
+
+\section{Radix Sort}
+Radix Sort is a non-comparative sorting algorithm that sorts numbers digit by digit using Counting Sort as a subroutine.
+
+\begin{lstlisting}[language=C++, caption={Radix Sort Implementation}]
+int getMax(const vector<int>& arr) {
+    return *max_element(arr.begin(), arr.end());
+}
+void countingSortByDigit(vector<int>& arr, int exp) {
+    int n = arr.size();
+    vector<int> output(n);
+    vector<int> count(10, 0);
+    for (int i = 0; i < n; i++)
+        count[(arr[i] / exp) % 10]++;
+    for (int i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+    for (int i = n - 1; i >= 0; i--) {
+        output[count[(arr[i] / exp) % 10] - 1] = arr[i];
+        count[(arr[i] / exp) % 10]--;
+    }
+    for (int i = 0; i < n; i++)
+        arr[i] = output[i];
+}
+void radixSort(vector<int>& arr) {
+    int maxVal = getMax(arr);
+    for (int exp = 1; maxVal / exp > 0; exp *= 10)
+        countingSortByDigit(arr, exp);
+}
+\end{lstlisting}
+
+\paragraph{Time Complexity Analysis:}
+\[
+O(d(n + b)) \quad \text{where } d \text{ is the number of digits and } b \text{ is the base (typically 10).}
+\]
+For decimal numbers, this is often written as \(O(n \log_{10} k)\).
+
+\section{Timsort}
+Timsort is a hybrid sorting algorithm derived from merge sort and insertion sort. It is used in Python’s sort and Java’s Arrays.sort() for objects. Below is a simplified version in C++.
+
+\begin{lstlisting}[language=C++, caption={Timsort Implementation (Simplified)}]
+const int RUN = 32;
+void insertionSort(vector<int>& arr, int left, int right) {
+    for (int i = left + 1; i <= right; i++) {
+        int temp = arr[i];
+        int j = i - 1;
+        while (j >= left && arr[j] > temp) {
+            arr[j+1] = arr[j];
+            j--;
+        }
+        arr[j+1] = temp;
+    }
+}
+void merge(vector<int>& arr, int l, int m, int r) {
+    int len1 = m - l + 1, len2 = r - m;
+    vector<int> leftArr(len1), rightArr(len2);
+    for (int i = 0; i < len1; i++) leftArr[i] = arr[l + i];
+    for (int i = 0; i < len2; i++) rightArr[i] = arr[m + 1 + i];
+    int i = 0, j = 0, k = l;
+    while (i < len1 && j < len2) {
+        if (leftArr[i] <= rightArr[j]) arr[k++] = leftArr[i++];
+        else arr[k++] = rightArr[j++];
+    }
+    while (i < len1) arr[k++] = leftArr[i++];
+    while (j < len2) arr[k++] = rightArr[j++];
+}
+void timSort(vector<int>& arr, int n) {
+    for (int i = 0; i < n; i += RUN) {
+        insertionSort(arr, i, min(i + RUN - 1, n - 1));
+    }
+    for (int size = RUN; size < n; size *= 2) {
+        for (int left = 0; left < n; left += 2 * size) {
+            int mid = left + size - 1;
+            int right = min(left + 2 * size - 1, n - 1);
+            if (mid < right) merge(arr, left, mid, right);
+        }
+    }
+}
+\end{lstlisting}
+
+\paragraph{Time Complexity Analysis:}
+\begin{itemize}
+  \item Best Case (nearly sorted): \(O(n)\)
+  \item Worst Case: \(O(n \log n)\)
+  \item Timsort adapts to the natural order in the data.
+\end{itemize}
+
+\section{Merge Sort}
+Merge Sort is a classic divide-and-conquer algorithm. It divides an array into two halves, recursively sorts each half, and then merges the two sorted halves.
+
+\subsection{Merge Sort Implementation in C++}
+\begin{lstlisting}[language=C++, caption={Merge Sort Implementation}]
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1; 
+    int n2 = right - mid;
+    vector<int> L(n1), R(n2);
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j])
+            arr[k++] = L[i++];
+        else
+            arr[k++] = R[j++];
+    }
+    while (i < n1)
+        arr[k++] = L[i++];
+    while (j < n2)
+        arr[k++] = R[j++];
+}
+void mergeSort(vector<int>& arr, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+\end{lstlisting}
+
+\subsection{Example Usage}
+\begin{lstlisting}[language=C++, caption={Using Merge Sort}]
+int main() {
+    vector<int> arr = {38, 27, 43, 3, 9, 82, 10};
+    int n = arr.size();
+    
+    mergeSort(arr, 0, n - 1);
+    
+    cout << "Sorted array: ";
+    for (int x : arr)
+        cout << x << " ";
+    cout << endl;
+    
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Time Complexity Analysis}
+Merge Sort divides the array into halves and then merges them. Its recurrence relation is:
+\[
+T(n) = 2T\left(\frac{n}{2}\right) + O(n)
+\]
+which solves to:
+\[
+T(n) = O(n \log n)
+\]
+Thus, Merge Sort has a time complexity of \(O(n \log n)\) in all cases.
+
+\paragraph{Space Complexity:}  
+Merge Sort requires additional space for temporary arrays during merging:
+\[
+O(n)
+\]
+
+\section*{Summary}
+Each sorting algorithm has its trade-offs in terms of time and space complexity:
+\begin{itemize}
+  \item \textbf{Bubble Sort}: \(O(n^2)\) worst-case, very simple but inefficient.
+  \item \textbf{Insertion Sort}: \(O(n^2)\) worst-case, \(O(n)\) best-case, efficient for nearly sorted data.
+  \item \textbf{Selection Sort}: \(O(n^2)\) consistently, few swaps.
+  \item \textbf{Counting Sort}: \(O(n + k)\) time, where \(k\) is the range of the input.
+  \item \textbf{Radix Sort}: \(O(n \log_{10} k)\) for decimal numbers.
+  \item \textbf{Timsort}: Hybrid algorithm with \(O(n)\) best-case and \(O(n \log n)\) worst-case.
+\end{itemize}

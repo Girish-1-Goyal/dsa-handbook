@@ -1,0 +1,118 @@
+\usepackage[utf8]{inputenc}   % Allow UTF-8 input
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}          % Latin Modern fonts for better output
+\usepackage{mathpazo}         % Palatino font for a classic look
+\usepackage{mathptmx} % Times-like font
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{booktabs}
+\usepackage[hypcap=false]{caption}
+\usepackage{listings}
+\lstset{
+  language=C++,
+  basicstyle=\ttfamily\normalsize, % Bigger font size
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{red}\itshape,
+  stringstyle=\color{green!60!black},
+  numbers=none, % Removed line numbers
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  breaklines=true,
+  tabsize=2,
+  captionpos=b,
+  columns=flexible,
+  backgroundcolor=\color{white!10},
+  rulecolor=\color{black!70},
+  xleftmargin=1em
+}
+
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{matrix}
+
+
+\usepackage{xcolor}
+\color{black}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\usepackage{hyperref}
+\usepackage{pagecolor}
+\usepackage{setspace}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolor}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{cppstyle}{
+    basicstyle=\ttfamily\normalsize, % Bigger font size
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{red}\itshape,
+    stringstyle=\color{green!60!black},
+    numbers=none, % Removed line numbers
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    breaklines=true,
+    tabsize=2,
+    captionpos=b,
+    columns=flexible,
+    backgroundcolor=\color{white!10},
+    rulecolor=\color{black!70},
+    xleftmargin=1em
+}
+
+\lstdefinestyle{bashstyle}{
+  language=bash,
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{orange}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{green!60!black},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  columns=fullflexible
+}
+
+% Custom title formatting (optional)
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{black}\Huge}
+  {\chaptername\ \thechapter}{20pt}{\Huge}
+
+\titleformat{\section}
+  {\normalfont\bfseries\color{black}\Large}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\color{black}\large}
+  {\thesubsection}{1em}{}
+
+% Ensure figure/table captions are black
+\usepackage[labelfont=bf, textfont=it]{caption}
+\captionsetup{labelfont={color=black}, textfont={color=black}}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+
+% Custom commands
+\newcommand{\code}[1]{\texttt{#1}}  % Inline code
+\newcommand{\command}[1]{\textbf{\textcolor{orange}{\texttt{#1}}}}

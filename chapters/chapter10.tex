@@ -1,0 +1,368 @@
+\chapter{Queue and Priority Queue}
+
+\section{Introduction}
+A \textbf{queue} is a linear data structure that follows the First In First Out (FIFO) principle. Elements are inserted at the rear and removed from the front, making it ideal for scheduling tasks, managing requests, and simulating real-world queues. A \textbf{priority queue} is an extension where each element is associated with a priority, and elements are dequeued based on their priority rather than solely on their order of insertion.
+
+\section{Definition and Theoretical Background}
+A standard queue supports the following operations:
+\begin{itemize}
+    \item \textbf{Enqueue}: Add an element to the rear of the queue.
+    \item \textbf{Dequeue}: Remove the element from the front of the queue.
+    \item \textbf{Front}: Retrieve the front element without removing it.
+    \item \textbf{IsEmpty}: Check whether the queue is empty.
+    \item \textbf{IsFull}: (In array implementations) Check whether the queue has reached its capacity.
+\end{itemize}
+
+For a queue \( Q \), the state can be defined by two indices (or pointers): 
+\begin{itemize}
+    \item \(\text{front}\): Index of the first element.
+    \item \(\text{rear}\): Index of the last element.
+\end{itemize}
+
+\subsection{Time Complexity for Queue Operations}
+\begin{itemize}
+    \item \textbf{Enqueue}: \( O(1) \) for both array (if implemented circularly) and linked list.
+    \item \textbf{Dequeue}: \( O(1) \) for both implementations.
+    \item \textbf{Front}: \( O(1) \) access.
+\end{itemize}
+
+A \textbf{priority queue} maintains elements along with a priority value. The key operations are:
+\begin{itemize}
+    \item \textbf{Enqueue (Insert)}: Insert an element with its priority.
+    \item \textbf{Dequeue (Delete)}: Remove the element with the highest priority (the definition of highest priority may vary; here we assume a lower numerical value indicates higher priority).
+    \item \textbf{Peek}: Look at the element with the highest priority.
+\end{itemize}
+
+\subsection{Time Complexity for Priority Queue Operations}
+\begin{itemize}
+    \item \textbf{Array-based (Unsorted)}:
+    \begin{itemize}
+        \item Enqueue: \( O(1) \)
+        \item Dequeue: \( O(n) \) (since finding the highest priority element takes linear time)
+    \end{itemize}
+    \item \textbf{Linked List (Sorted)}:
+    \begin{itemize}
+        \item Enqueue: \( O(n) \) (to insert at the correct position)
+        \item Dequeue: \( O(1) \) (removing from the front)
+    \end{itemize}
+\end{itemize}
+
+\section{Diagrams of Queue Operations}
+\subsection{Standard Queue Diagram}
+The following diagram illustrates a standard queue with a \texttt{front} and a \texttt{rear} pointer.
+
+\begin{center}
+\begin{tikzpicture}[node distance=1cm]
+    % Queue cells
+    \node (cell1) [draw, rectangle, minimum width=1.5cm, minimum height=1cm] {10};
+    \node (cell2) [draw, rectangle, right of=cell1, minimum width=1.5cm, minimum height=1cm] {20};
+    \node (cell3) [draw, rectangle, right of=cell2, minimum width=1.5cm, minimum height=1cm] {30};
+    \node (cell4) [draw, rectangle, right of=cell3, minimum width=1.5cm, minimum height=1cm] {40};
+    
+    % Labels for front and rear
+    \node[above=0.2cm of cell1] {\textbf{Front}};
+    \node[above=0.2cm of cell4] {\textbf{Rear}};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Priority Queue Diagram}
+Below is a diagram for a priority queue. Note that elements are arranged according to priority rather than insertion order.
+
+\begin{center}
+\begin{tikzpicture}[node distance=1cm]
+    \node (p1) [draw, rectangle, minimum width=2cm, minimum height=1cm] {Data: 15, Pri: 1};
+    \node (p2) [draw, rectangle, below of=p1, minimum width=2cm, minimum height=1cm] {Data: 20, Pri: 3};
+    \node (p3) [draw, rectangle, below of=p2, minimum width=2cm, minimum height=1cm] {Data: 25, Pri: 5};
+    
+    \node[left=0.5cm of p1] {\textbf{Highest}};
+    \node[left=0.5cm of p3] {\textbf{Lowest}};
+\end{tikzpicture}
+\end{center}
+
+\section{C++ Implementations}
+
+\subsection{Queue Using Array}
+This implementation uses a fixed-size array. Note that a circular array implementation could handle wrap-around more elegantly, but here we use a simple version.
+
+\begin{lstlisting}[caption={C++ implementation of a Queue using an Array}]
+#include <iostream>
+using namespace std;
+#define MAX 100
+
+class Queue {
+private:
+    int arr[MAX];
+    int front, rear;
+public:
+    Queue() {
+        front = 0;
+        rear = -1;
+    }
+    bool isEmpty() {
+        return (front > rear);
+    }
+    bool isFull() {
+        return (rear == MAX - 1);
+    }
+    void enqueue(int x) {
+        if(isFull()) {
+            cout << "Queue Overflow\n";
+            return;
+        }
+        arr[++rear] = x;
+    }
+    int dequeue() {
+        if(isEmpty()) {
+            cout << "Queue Underflow\n";
+            return -1;
+        }
+        return arr[front++];
+    }
+    int getFront() {
+        if(isEmpty()) {
+            cout << "Queue is empty\n";
+            return -1;
+        }
+        return arr[front];
+    }
+};
+
+int main() {
+    Queue q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    cout << "Front element is: " << q.getFront() << "\n"; // Should print 10
+    cout << "Dequeued element is: " << q.dequeue() << "\n"; // Removes 10
+    cout << "New front element is: " << q.getFront() << "\n"; // Should print 20
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Queue Using Linked List}
+This implementation uses nodes to allow the queue to grow dynamically.
+
+\begin{lstlisting}[caption={C++ implementation of a Queue using a Linked List}]
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+};
+
+class QueueLL {
+private:
+    Node* front;
+    Node* rear;
+public:
+    QueueLL() {
+        front = rear = nullptr;
+    }
+    bool isEmpty() {
+        return (front == nullptr);
+    }
+    void enqueue(int x) {
+        Node* temp = new Node();
+        temp->data = x;
+        temp->next = nullptr;
+        if(rear == nullptr) {
+            front = rear = temp;
+            return;
+        }
+        rear->next = temp;
+        rear = temp;
+    }
+    int dequeue() {
+        if(isEmpty()) {
+            cout << "Queue Underflow\n";
+            return -1;
+        }
+        int x = front->data;
+        Node* temp = front;
+        front = front->next;
+        if(front == nullptr)
+            rear = nullptr;
+        delete temp;
+        return x;
+    }
+    int getFront() {
+        if(isEmpty()) {
+            cout << "Queue is empty\n";
+            return -1;
+        }
+        return front->data;
+    }
+};
+
+int main() {
+    QueueLL q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    cout << "Front element is: " << q.getFront() << "\n"; // Should print 10
+    cout << "Dequeued element is: " << q.dequeue() << "\n"; // Removes 10
+    cout << "New front element is: " << q.getFront() << "\n"; // Should print 20
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Priority Queue Using Array (Unsorted)}
+In this version, insertion is \( O(1) \) while deletion (removing the highest priority element) is \( O(n) \).
+
+\begin{lstlisting}[caption={C++ implementation of a Priority Queue using an Array}]
+#include <iostream>
+using namespace std;
+#define MAX 100
+
+struct Element {
+    int data;
+    int priority;
+};
+
+class PriorityQueue {
+private:
+    Element arr[MAX];
+    int size;
+public:
+    PriorityQueue() {
+        size = 0;
+    }
+    bool isEmpty() {
+        return (size == 0);
+    }
+    bool isFull() {
+        return (size == MAX);
+    }
+    void enqueue(int data, int priority) {
+        if(isFull()) {
+            cout << "Priority Queue Overflow\n";
+            return;
+        }
+        arr[size].data = data;
+        arr[size].priority = priority;
+        size++;
+    }
+    int dequeue() {
+        if(isEmpty()) {
+            cout << "Priority Queue Underflow\n";
+            return -1;
+        }
+        // Find element with highest priority (lower number indicates higher priority)
+        int idx = 0;
+        for (int i = 1; i < size; i++) {
+            if(arr[i].priority < arr[idx].priority) {
+                idx = i;
+            }
+        }
+        int data = arr[idx].data;
+        // Remove the element by shifting subsequent elements
+        for (int i = idx; i < size - 1; i++) {
+            arr[i] = arr[i + 1];
+        }
+        size--;
+        return data;
+    }
+};
+
+int main() {
+    PriorityQueue pq;
+    pq.enqueue(100, 3);
+    pq.enqueue(200, 1);
+    pq.enqueue(300, 2);
+    cout << "Dequeued element is: " << pq.dequeue() << "\n"; // Should remove element 200 (highest priority)
+    return 0;
+}
+\end{lstlisting}
+
+\subsection{Priority Queue Using Linked List (Sorted)}
+This implementation keeps the list sorted according to priority so that dequeue is \( O(1) \) while insertion takes \( O(n) \).
+
+\begin{lstlisting}[caption={C++ implementation of a Priority Queue using a Linked List}]
+#include <iostream>
+using namespace std;
+
+class PNode {
+public:
+    int data;
+    int priority;
+    PNode* next;
+};
+
+class PriorityQueueLL {
+private:
+    PNode* head;
+public:
+    PriorityQueueLL() {
+        head = nullptr;
+    }
+    bool isEmpty() {
+        return (head == nullptr);
+    }
+    void enqueue(int data, int priority) {
+        PNode* temp = new PNode();
+        temp->data = data;
+        temp->priority = priority;
+        // If list is empty or new node has higher priority than the head
+        if(head == nullptr || priority < head->priority) {
+            temp->next = head;
+            head = temp;
+        } else {
+            PNode* current = head;
+            while(current->next != nullptr && current->next->priority <= priority) {
+                current = current->next;
+            }
+            temp->next = current->next;
+            current->next = temp;
+        }
+    }
+    int dequeue() {
+        if(isEmpty()) {
+            cout << "Priority Queue Underflow\n";
+            return -1;
+        }
+        PNode* temp = head;
+        int data = temp->data;
+        head = head->next;
+        delete temp;
+        return data;
+    }
+    int peek() {
+        if(isEmpty()) {
+            cout << "Priority Queue is empty\n";
+            return -1;
+        }
+        return head->data;
+    }
+};
+
+int main() {
+    PriorityQueueLL pq;
+    pq.enqueue(100, 3);
+    pq.enqueue(200, 1);
+    pq.enqueue(300, 2);
+    cout << "Dequeued element is: " << pq.dequeue() << "\n"; // Should remove element 200 (highest priority)
+    return 0;
+}
+\end{lstlisting}
+
+\section{Example Scenario in Detail}
+Consider a standard queue scenario:
+\begin{enumerate}
+    \item \textbf{Enqueue} 10 \(\rightarrow\) Queue: [10]
+    \item \textbf{Enqueue} 20 \(\rightarrow\) Queue: [10, 20]
+    \item \textbf{Enqueue} 30 \(\rightarrow\) Queue: [10, 20, 30]
+    \item \textbf{Dequeue} \(\rightarrow\) 10 is removed, Queue: [20, 30]
+\end{enumerate}
+
+For a priority queue (assuming lower numbers indicate higher priority):
+\begin{enumerate}
+    \item Enqueue (data: 100, priority: 3)
+    \item Enqueue (data: 200, priority: 1)
+    \item Enqueue (data: 300, priority: 2)  
+\end{enumerate}
+After insertion, the elements are ordered by priority as: [200 (priority 1), 300 (priority 2), 100 (priority 3)]. Dequeuing returns 200 first.
+
+\section{Conclusion}
+Queues are an essential data structure used in a variety of applications from scheduling to buffering. This chapter presented a detailed theoretical background, discussed time complexities, and illustrated the operations with diagrams. We also provided full C++ implementations for queues and priority queues using both array-based and linked list-based approaches. Understanding these implementations not only helps in grasping the abstract concept of FIFO and priority ordering but also shows practical trade-offs between different implementations.

@@ -1,0 +1,333 @@
+\chapter{Classification of Data Structures}
+
+Data structures can be broadly classified based on how data is organized and accessed. The classification helps in choosing the appropriate data structure for solving different kinds of problems efficiently.
+
+\section*{\Large \textbf{1. Primitive and Non-Primitive Data Structures}}
+
+\subsection*{\textbf{Primitive Data Structures}}
+These are the most basic data structures and serve as the building blocks for more complex data handling. They are directly operated upon by machine instructions.
+
+\begin{itemize}
+  \item \textbf{Integer:} Stores whole numbers.
+  \item \textbf{Float:} Stores decimal numbers.
+  \item \textbf{Character:} Stores single characters.
+  \item \textbf{Boolean:} Stores true or false values.
+\end{itemize}
+
+\textbf{Example:}
+\begin{lstlisting}
+int age = 25;
+float temperature = 36.6;
+char grade = 'A';
+bool isAvailable = true;
+\end{lstlisting}
+
+\subsection*{\textbf{Non-Primitive Data Structures}}
+These are more complex structures built using primitive data types. They are further divided into:
+\begin{itemize}
+  \item \textbf{Linear Data Structures}
+  \item \textbf{Non-Linear Data Structures}
+\end{itemize}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{\Large \textbf{2. Linear Data Structures}}
+
+Linear data structures arrange data in a sequential manner. Each element is connected to its previous and next element, forming a linear order.
+
+\subsection*{\textbf{1. Array}}
+An array is a fixed-size collection of elements of the same type stored in contiguous memory locations.
+
+\textbf{Example:}
+\begin{lstlisting}
+int arr[5] = {10, 20, 30, 40, 50};
+for (int i = 0; i < 5; i++) {
+    cout << arr[i] << " ";
+}
+\end{lstlisting}
+
+\subsection*{\textbf{2. Linked List}}
+A linked list is a linear structure where each element (node) points to the next, allowing dynamic memory allocation.
+
+\textbf{Example:}
+\begin{lstlisting}
+struct Node {
+    int data;
+    Node* next;
+};
+Node* head = new Node{10, nullptr};
+head->next = new Node{20, nullptr};
+\end{lstlisting}
+
+\subsection*{\textbf{3. Stack}}
+A stack is a collection of elements that follows the Last In, First Out (LIFO) principle.
+
+\textbf{Example:}
+\begin{lstlisting}
+stack<int> s;
+s.push(10);
+s.push(20);
+s.pop();
+cout << s.top(); // Output: 10
+\end{lstlisting}
+
+\subsection*{\textbf{4. Queue}}
+A queue follows the First In, First Out (FIFO) principle.
+
+\textbf{Example:}
+\begin{lstlisting}
+queue<int> q;
+q.push(10);
+q.push(20);
+q.pop();
+cout << q.front(); // Output: 20
+\end{lstlisting}
+
+\subsection*{\textbf{5. Deque (Double Ended Queue)}}
+Deque allows insertion and deletion from both ends (front and rear).
+
+\textbf{Example:}
+\begin{lstlisting}
+deque<int> dq;
+dq.push_front(10);
+dq.push_back(20);
+cout << dq.front(); // Output: 10
+cout << dq.back();  // Output: 20
+\end{lstlisting}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{\Large \textbf{3. Non-Linear Data Structures}}
+
+Non-linear structures store data hierarchically or in a network. Elements are not arranged in sequence.
+
+\subsection*{\textbf{1. Tree}}
+A tree is a hierarchical structure with a root node and child nodes. Common trees include binary trees, binary search trees, AVL trees, etc.
+
+\textbf{Example:}
+\begin{lstlisting}
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+};
+TreeNode* root = new TreeNode{10, nullptr, nullptr};
+\end{lstlisting}
+
+\subsection*{\textbf{2. Graph}}
+A graph consists of a set of nodes (vertices) and edges connecting pairs of nodes. Graphs may be directed or undirected, weighted or unweighted.
+
+\textbf{Example using adjacency list:}
+\begin{lstlisting}
+vector<int> graph[5];
+graph[0].push_back(1);
+graph[1].push_back(2);
+\end{lstlisting}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{\Large \textbf{4. Static and Dynamic Data Structures}}
+
+\subsection*{\textbf{Static Data Structures}}
+These structures have fixed size and memory is allocated at compile time (e.g., arrays).
+
+\textbf{Example:}
+\begin{lstlisting}
+int nums[100]; // Static allocation
+\end{lstlisting}
+
+\subsection*{\textbf{Dynamic Data Structures}}
+Size can change during runtime and memory is allocated dynamically (e.g., linked lists, trees).
+
+\textbf{Example:}
+\begin{lstlisting}
+int* ptr = new int[100];
+delete[] ptr;
+\end{lstlisting}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{\Large \textbf{5. Homogeneous and Non-Homogeneous Data Structures}}
+
+\subsection*{\textbf{Homogeneous}}
+All elements are of the same data type (e.g., arrays).
+
+\subsection*{\textbf{Non-Homogeneous}}
+Elements can be of different data types (e.g., structures in C/C++).
+
+\textbf{Example:}
+\begin{lstlisting}
+struct Student {
+    int id;
+    string name;
+    float marks;
+};
+\end{lstlisting}
+
+\vspace{0.5cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{\Large \textbf{Summary Table}}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Category} & \textbf{Type} & \textbf{Examples} \\ \hline
+Primitive & - & int, float, char, boolean \\ \hline
+Non-Primitive & Linear & Array, Linked List, Stack, Queue \\ \hline
+Non-Primitive & Non-Linear & Tree, Graph \\ \hline
+Based on Memory & Static & Array \\ \hline
+Based on Memory & Dynamic & Linked List, Tree \\ \hline
+Based on Type & Homogeneous & Array \\ \hline
+Based on Type & Non-Homogeneous & Structure \\ \hline
+\end{tabular}
+\caption{Classification of Data Structures}
+\end{table}
+
+\newpage
+\section*{\Large \textbf{Primitive Data Type Ranges}}
+
+\begin{itemize}
+  \item \textbf{Integer (int):}
+    \begin{itemize}
+      \item Minimum Value: \textbf{\textcolor{blue}{-2,147,483,648}} (i.e., $-2^{31}$)
+      \item Maximum Value: \textbf{\textcolor{blue}{2,147,483,647}} (i.e., $2^{31} - 1$)
+      \item Size: \textbf{\textcolor{blue}{4 bytes}} (32 bits)
+    \end{itemize}
+
+  \item \textbf{Floating Point (float):}
+    \begin{itemize}
+      \item Minimum Positive Value: \textbf{\textcolor{blue}{1.4 × 10\textsuperscript{-45}}} (approx)
+      \item Maximum Value: \textbf{\textcolor{blue}{3.4 × 10\textsuperscript{38}}} (approx)
+      \item Precision: \textbf{\textcolor{blue}{6 to 7 digits}}
+      \item Size: \textbf{\textcolor{blue}{4 bytes}} (IEEE 754 standard)
+    \end{itemize}
+
+  \item \textbf{Character (char):}
+    \begin{itemize}
+      \item Minimum Value: \textbf{\textcolor{blue}{0}} (Null character, \texttt{'\textbackslash 0'})
+      \item Maximum Value: \textbf{\textcolor{blue}{127}} (Standard ASCII) or \textbf{\textcolor{blue}{255}} (Extended ASCII)
+      \item Size: \textbf{\textcolor{blue}{1 byte}} (8 bits)
+    \end{itemize}
+
+  \item \textbf{Boolean:}
+    \begin{itemize}
+      \item Possible Values: \textbf{\textcolor{blue}{true}}, \textbf{\textcolor{blue}{false}}
+      \item Size: \textbf{\textcolor{blue}{1 bit}} (may occupy 1 byte in memory)
+    \end{itemize}
+\end{itemize}
+
+\section*{\Large \textbf{Operations on Data Structures}}
+
+Data structures support several essential operations that allow us to access, modify, and manipulate stored data efficiently. Below are the fundamental operations:
+
+\subsection*{\large \textbf{1. Traversing}}
+
+Traversing refers to the process of visiting each element in the data structure exactly once to perform some operation (e.g., displaying or processing data).
+
+\begin{itemize}
+  \item In linear structures (like arrays or linked lists), traversal is typically done from the first to the last element.
+  \item In tree structures, traversal can be in-order, pre-order, or post-order.
+  \item In graphs, traversal can be depth-first (DFS) or breadth-first (BFS).
+\end{itemize}
+
+\textbf{Example:}
+\begin{lstlisting}
+// Traversing an array
+for (int i = 0; i < n; i++) {
+    cout << arr[i] << " ";
+}
+\end{lstlisting}
+
+\subsection*{\large \textbf{2. Insertion}}
+
+Insertion involves adding a new element to the data structure at a specific location.
+
+\begin{itemize}
+  \item In arrays, inserting in the middle requires shifting elements.
+  \item In linked lists, it involves changing node pointers.
+  \item In trees or heaps, it must maintain structural properties.
+\end{itemize}
+
+\textbf{Time Complexity:}
+\begin{itemize}
+  \item Array (unsorted): $O(n)$
+  \item Linked List (at head): $O(1)$
+\end{itemize}
+
+\subsection*{\large \textbf{3. Deletion}}
+
+Deletion removes a specified element from a data structure.
+
+\begin{itemize}
+  \item In arrays, this involves shifting elements to fill the gap.
+  \item In linked lists, pointers are updated to unlink the node.
+  \item In binary search trees, deletion can be complex if the node has children.
+\end{itemize}
+
+\textbf{Time Complexity:}
+\begin{itemize}
+  \item Array (unsorted): $O(n)$
+  \item Linked List (if pointer is given): $O(1)$
+\end{itemize}
+
+\subsection*{\large \textbf{4. Searching}}
+
+Searching locates the position of a given element in the data structure.
+
+\begin{itemize}
+  \item \textbf{Linear Search:} Sequentially checks every element. Time Complexity: $O(n)$
+  \item \textbf{Binary Search:} Used in sorted arrays. Time Complexity: $O(\log n)$
+\end{itemize}
+
+\textbf{Example:}
+\begin{lstlisting}
+// Linear Search
+for (int i = 0; i < n; i++) {
+    if (arr[i] == key) return i;
+}
+\end{lstlisting}
+
+\subsection*{\large \textbf{5. Sorting}}
+
+Sorting is the process of arranging data in a particular order (ascending or descending). It improves the efficiency of other operations like searching and merging.
+
+\textbf{Common Algorithms:}
+\begin{itemize}
+  \item Bubble Sort — $O(n^2)$
+  \item Insertion Sort — $O(n^2)$
+  \item Merge Sort — $O(n \log n)$
+  \item Quick Sort — Average: $O(n \log n)$, Worst: $O(n^2)$
+\end{itemize}
+
+\subsection*{\large \textbf{6. Merging}}
+
+Merging is the process of combining two sorted data structures into one sorted structure.
+
+\begin{itemize}
+  \item Often used in algorithms like Merge Sort.
+  \item Efficient merging requires both input structures to be sorted.
+\end{itemize}
+
+\textbf{Example:}
+\begin{lstlisting}
+// Merging two sorted arrays
+while (i < n && j < m) {
+    if (A[i] < B[j]) C[k++] = A[i++];
+    else C[k++] = B[j++];
+}
+\end{lstlisting}
+
+---
+
+These operations are fundamental to algorithm development and problem-solving in computer science and form the core of many real-world applications.

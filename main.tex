@@ -1,0 +1,86 @@
+\documentclass[twoside, 12pt, a4paper, english, openany]{book}
+
+\input{preamble.tex}  % Load packages and custom commands
+
+% Metadata
+\title{Data Structures Handbook and Commands Directory}
+\author{Girish Kumar Goyal}
+\date{\today}
+
+\begin{document}
+
+% -------------------
+% Front matter
+% -------------------
+\frontmatter
+
+\begin{titlepage}
+    \centering
+    \vspace*{1.5cm}
+
+    % Logo / Decorative Image (optional)
+    \includegraphics[width=0.25\textwidth]{images/logo.png}\par\vspace{1cm}
+
+    % Book Title
+    {\Huge\bfseries\color{blue!30!black} Data Structures Handbook and Commands Directory\par}
+    \vspace{0.5cm}
+    {\Large\itshape\color{gray!70!black} Understanding Data Structures with C++\par}
+    \vspace{2cm}
+
+    % Author
+    {\LARGE\color{black!85!blue} Girish Kumar Goyal \par}
+    \vspace{1.2cm}
+
+    % Decorative Rule
+    \rule{\textwidth}{0.5pt}
+    \vspace{0.3cm}
+
+    % Course or Department Info
+    {\large\scshape Computer Science and Engineering\par}
+    \vspace{0.5cm}
+
+    \vfill
+
+    % Bottom Footer
+    {\large\itshape "Learn, Code, Optimize." \par}
+\end{titlepage}
+
+% Preface and TOC
+\include{chapters/preface}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% -------------------
+% Main matter (Chapters)
+% -------------------
+\mainmatter
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\part{Basic Introduction}
+\include{chapters/chapter01}
+\include{chapters/chapter02}
+\include{chapters/chapter03}
+\include{chapters/chapter04}
+\include{chapters/chapter05}
+\include{chapters/chapter06}
+\part{Linear Data Structures}
+\include{chapters/chapter07}
+\include{chapters/chapter08}
+\include{chapters/chapter09}
+\include{chapters/chapter10}
+\include{chapters/chapter11}
+\part{Non-linear Data Structures}
+\include{chapters/chapter12}
+\include{chapters/chapter13}
+\part{Searching and Sorting}
+\include{chapters/chapter14}
+\include{chapters/chapter15}
+\include{chapters/chapter16}
+\include{chapters/chapter17}
+\part{Commands}
+\include{chapters/chapter18}
+
+\end{document}
